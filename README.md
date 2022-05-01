@@ -1,2 +1,2 @@
 # crypto_projs
-repository for my crypto apps and projects
+This is a Repository where I will be starting off my crypto journey where I will learn to make smart contracts and then eventually applications on the blockchain (Ethereum) as well.
