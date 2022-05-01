@@ -1,5 +1,5 @@
 const main = async () => {
-    const waveContractFactory = await hre.ethers.getConractFactory("WavePortal"); //Compile contract and generate necessary files in artifacts folder
+    const waveContractFactory = await hre.ethers.getContractFactory("WavePortal"); //Compile contract and generate necessary files in artifacts folder
     const waveContract = await waveContractFactory.deploy(); // Create a local ethereum network but just for this contract.
                                                             //after script completes, destroy the network.
                                                            //Makes it easier to debug and test.
