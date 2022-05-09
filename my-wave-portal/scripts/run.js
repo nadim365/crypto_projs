@@ -9,8 +9,6 @@ const main = async () => {
     Constructor runs when we deply the contract.
     */
     const waveContract = await waveContractFactory.deploy();
-
-
     await waveContract.deployed(); // Wait till contract is deployed, constructor runs when we deploy.
 
     console.log("Contract Deployed to: ", waveContract.address); //waveContract.address is the address of the deployed contract.
