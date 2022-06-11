@@ -1,5 +1,5 @@
 const main = async () => {
-    const [owner, randomPerson] = await hre.ethers.getSigners(); //grabbing wallet address of contract owner and another random address.
+    // const [owner, randomPerson] = await hre.ethers.getSigners(); //grabbing wallet address of contract owner and another random address.
     const waveContractFactory = await hre.ethers.getContractFactory("WavePortal"); //Compile contract and generate necessary files in artifacts folder
 
     /*
@@ -11,8 +11,8 @@ const main = async () => {
     const waveContract = await waveContractFactory.deploy();
     await waveContract.deployed(); // Wait till contract is deployed, constructor runs when we deploy.
 
-    console.log("Contract Deployed to: ", waveContract.address); //waveContract.address is the address of the deployed contract.
-    console.log("Contract Deployed by: ", owner.address); //returning address of the person who deploys the contract.
+    console.log("Contract Address: ", waveContract.address); //waveContract.address is the address of the deployed contract.
+    //"Tester code" console.log("Contract Deployed by: ", owner.address); //returning address of the person who deploys the contract.
 
     /*
     when we deploy the contract, our functions become available to be called on the blockchain
@@ -20,21 +20,17 @@ const main = async () => {
     */
     let waveCount;
     waveCount = await waveContract.getTotalWaves();
+    console.log(waveCount.toNumber());
 
-    let waveTxn = await waveContract.wave();
+    let waveTxn = await waveContract.wave("A Message");
+    await waveTxn.wait(); // wait for transaction to be mined.
+
+    const [_, randomPerson] = await hre.ethers.getSigners();
+    waveTxn = await waveContract.connect(randomPerson).wave("Another Message!");
     await waveTxn.wait();
 
-    waveCount = await waveContract.getTotalWaves();
-
-    /*
-    Below here is the code which simulates other people using our functions.
-    */
-
-    waveTxn = await waveContract.connect(randomPerson).wave();
-    await waveTxn.wait();
-
-    waveCount = await waveContract.getTotalWaves();
-
+    let allWaves = await waveContract.getAllWaves();
+    console.log(allWaves);
 };
 
 const runMain = async () => {
