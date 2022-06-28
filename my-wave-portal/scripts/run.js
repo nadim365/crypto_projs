@@ -10,6 +10,8 @@ const main = async () => {
     Constructor runs when we deply the contract.
     */
     const waveContract = await waveContractFactory.deploy({
+        //essentially this line says go and deploy the contract and fund it with 0.1 ETH.
+        //This 0.1 ETH is removed from my wallet and is used to fund the contract.
         value: hre.ethers.utils.parseEther("0.1"),
     });
     await waveContract.deployed(); // Wait till contract is deployed, constructor runs when we deploy.
@@ -23,16 +25,16 @@ const main = async () => {
     let contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
     console.log(
         "Contract Balance: ",
-        hre.ethers.utils.formatEther(contractBalance)
+        hre.ethers.utils.formatEther(contractBalance) // test to see if the contract balance is 0.1 ETH.
     );
 
     /*
     when we deploy the contract, our functions become available to be called on the blockchain
     because we used the PUBLIC keyword for the fucntions
     */
-   // let waveCount;
-   // waveCount = await waveContract.getTotalWaves();
-   // console.log(waveCount.toNumber());
+    // let waveCount;
+    // waveCount = await waveContract.getTotalWaves();
+    // console.log(waveCount.toNumber());
 
     let waveTxn = await waveContract.wave("A Message");
     await waveTxn.wait(); // wait for transaction to be mined.
@@ -46,9 +48,9 @@ const main = async () => {
         hre.ethers.utils.formatEther(contractBalance)
     );
 
-   // const [_, randomPerson] = await hre.ethers.getSigners();
-   // waveTxn = await waveContract.connect(randomPerson).wave("Another Message!");
-   // await waveTxn.wait();
+    // const [_, randomPerson] = await hre.ethers.getSigners();
+    // waveTxn = await waveContract.connect(randomPerson).wave("Another Message!");
+    // await waveTxn.wait();
 
     let allWaves = await waveContract.getAllWaves();
     console.log(allWaves);
