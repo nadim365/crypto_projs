@@ -2,7 +2,7 @@
 //SPDX = software package data exchange
 pragma solidity ^0.8.4;
 
-import "../node_modules/hardhat/console.sol";
+import "hardhat/console.sol";
 
 contract WavePortal{
     uint256 totalWaves;
@@ -25,7 +25,7 @@ contract WavePortal{
 
     Wave[] waves;
 
-    constructor(){
+    constructor() payable{
         console.log("Hello World, This is my first smart contract");
     }
 
